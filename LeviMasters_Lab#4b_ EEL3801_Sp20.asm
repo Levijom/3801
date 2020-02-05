@@ -12,6 +12,11 @@ loop:
 	move	$a0, $t0
 	li	$v0, 34		# Print the value
 	syscall
+	
+	addi $a0, $0, 0xA	# set a0 to 10
+	addi $v0, $0, 0xB	# set v0 to 11
+	syscall			# syscalls to print a new line
+        
 	addiu	$t0, $t0, 1	# Increment by 1
 	j	loop		# Iterate the loop
 
