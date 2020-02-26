@@ -254,7 +254,7 @@ main:
 		
 		# G binary
 		li	$v0, 4			# string
-		la	$a0, g_ten
+		la	$a0, g_two
 		syscall
 		
 		li	$v0, 35			# binary
