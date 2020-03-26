@@ -41,6 +41,8 @@
 	prompt2:	.asciiz "Please input second word: "
 	word1:		.space 10
 	word2:		.space 10
+	output1:	.asciiz "KNIGHT: "
+	output2:	.asciiz "UCF: "
 .text
 main:
 	addi 	$a0, $0, 0xA
@@ -135,12 +137,86 @@ main:
 # until we reach a mismatch, or complete the word
 
 	end3:
+		la	$t0, string
+		la	$t1, word1
+		addi	$t2, $t1, 6			# 6 is length of expected input
+		lb	$t2, 0($t2)
+		li	$t5, 0				# word1 match counter
 		
+		Loop1:					# loop to find word 1 matches
+			lb	$t3, 0($t0)
+			lb	$t4, 0($t1)
+			beqz	$t3, endL1		# finished looping through input
+			beq	$t4, $t2, w1Match		# found a match for w1 BROKEN
+			beq	$t3, $t4, nextChar1	# found 1 matching char
+							# If we get here, there is no match
+			addi	$t0, $t0, 1		# increment phrase counter
+			la	$t1, word1		# reset word1 counter
+			j	Loop1
+		
+		nextChar1:
+			addi	$t0, $t0, 1		# increment phrase counter
+			addi	$t1, $t1, 1		# increment word1 counter
+			j	Loop1
+			
+		w1Match:
+			addi	$t5, $t5, 1		# increment word1 match counter
+			addi	$t0, $t0, 1		# increment phrase counter
+			la	$t1, word1		# reset word1 counter
+			j	Loop1
+	endL1:
+		la	$t0, string
+		la	$t1, word2
+		addi	$t2, $t1, 3			# 3 is length of expected input
+		lb	$t2, 0($t2)
+		li	$t6, 0				# word2 match counter
+		
+		Loop2:					# loop to find word 1 matches
+			lb	$t3, 0($t0)
+			lb	$t4, 0($t1)
+			beqz	$t3, end		# finished looping through input
+			beq	$t4, $t2, w2Match		# found a match for w1 BROKEN
+			beq	$t3, $t4, nextChar2	# found 1 matching char
+							# If we get here, there is no match
+			addi	$t0, $t0, 1		# increment phrase counter
+			la	$t1, word2		# reset word1 counter
+			j	Loop2
+		
+		nextChar2:
+			addi	$t0, $t0, 1		# increment phrase counter
+			addi	$t1, $t1, 1		# increment word1 counter
+			j	Loop2
+			
+		w2Match:
+			addi	$t6, $t6, 1		# increment word1 match counter
+			addi	$t0, $t0, 1		# increment phrase counter
+			la	$t1, word2		# reset word1 counter
+			j	Loop2
 		
 	end:
-		addi $a0, $0, 0xA
-		addi $v0, $0, 0xB
+		addi	$a0, $0, 0xA
+		addi	$v0, $0, 0xB
 		syscall			# syscalls to print a new line
+		
+		li 	$v0, 4 		# Print output1
+		la 	$a0, output1
+		syscall
+		
+		move	$a0, $t5
+		li	$v0, 1
+		syscall
+		
+		addi	$a0, $0, 0xA
+		addi	$v0, $0, 0xB
+		syscall			# syscalls to print a new line
+		
+		li 	$v0, 4 		# Print output1
+		la 	$a0, output2
+		syscall
+		
+		move	$a0, $t6
+		li	$v0, 1
+		syscall
 		
 		li 	$v0, 10
 		syscall
