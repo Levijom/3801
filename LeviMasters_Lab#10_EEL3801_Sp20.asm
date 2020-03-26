@@ -1,9 +1,5 @@
 # Levi Masters
 #
-# The purpose of this project is to increase your understanding of data, address, memory contents, and strings. 
-# You  will  be  expected  to  apply  selected  MIPS  assembly  language  instructions,  
-# assembler  directives,  and system calls sufficient  enough to  handle string  manipulation tasks. 
-#
 # You are tasked to develop a program that finds how many times a word is used in a given statement. 
 # To test your program, you should hardcode the below sample statement in your code and ask the user 
 # to input two different words, which are “UCF” and “KNIGHTS.” 
@@ -24,15 +20,6 @@
 #	Please input second word:  UCF
 #	KNIGHT: 6 
 #	UCF: 3 
-#
-# Ascii Values
-# k	=	107
-# n	=	110
-# i	=	105
-# g	=	103
-# h	=	104
-# t	=	116
-# s	=	115
 
 
 .data
