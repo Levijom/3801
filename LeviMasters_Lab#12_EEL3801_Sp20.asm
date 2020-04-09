@@ -37,10 +37,16 @@ syscall
 
 #mean function 
 mean: 
-|------------------| 
-|Put your code here| 
-|------------------| 
+addu	$t0, $zero, $zero	
+	Loop:
+		beq	$t0, 10, return
+		l.s	$f4, 0($a0)
+		add.s	$f1, $f1, $f4
+		addi	$a0, $a0, 4
+		addi	$t0, $t0, 1
+		j	Loop
+		
 return: 
-|------------------| 
-|Put your code here| 
-|------------------| 
+	l.s	$f5, N
+	div.s	$f1, $f1, $f5
+	jr	$ra
